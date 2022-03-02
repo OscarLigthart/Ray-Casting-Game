@@ -6,6 +6,8 @@
 #include <chrono>
 #include <thread>
 
+#include <player.hpp>
+
 
 /**
  *  Main function
@@ -15,6 +17,13 @@ int main() {
     
     // Declare and create a new render-window
     sf::RenderWindow window(sf::VideoMode(1024, 512), "Game");
+
+    // initialize player (at location 300,300)
+    Player player(300, 300);
+
+
+    // parameters
+    sf::Color backgroundColor(77, 77, 77, 255);
 
     /**
      *  The main loop
@@ -30,13 +39,40 @@ int main() {
             // Request for closing the window
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            if (event.type == sf::Event::KeyPressed){
+                
+                // move left
+                switch (event.key.code){
+                    case sf::Keyboard::W : // move up
+                        player.y -= 5;
+                        break;
+                    case sf::Keyboard::A : // move left
+                        player.x -= 5;
+                        break;
+                    case sf::Keyboard::S : // move down
+                        player.y += 5;
+                        break;
+                    case sf::Keyboard::D : // move right
+                        player.x += 5;
+                        break;
+
+                    // stop if escape is clicked
+                    case sf::Keyboard::Escape :
+                        window.close();
+                        break;
+                }
+            }
         }
 
         /**
          *  Draw the board after running all processes
          */
         // Clear the whole window before rendering a new frame
-        window.clear();
+        window.clear(backgroundColor);
+        
+        // draw the player
+        player.draw(window);
 
         // End the current frame and display its contents on screen
         window.display();
