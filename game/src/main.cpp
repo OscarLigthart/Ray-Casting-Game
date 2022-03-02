@@ -8,6 +8,7 @@
 
 #include <player.hpp>
 #include <world.hpp>
+#include <ray_caster.hpp>
 
 /**
  *  Main function
@@ -56,13 +57,21 @@ int main() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) player.right();
 
         /**
-         *  Draw the board after running all processes
+         *  Ray casting happens here
+         */
+        std::vector<Ray> rays = castRays(player, world);
+
+        /**
+         *  Draw everything after the calculations
          */
         // Clear the whole window before rendering a new frame
         window.clear(backgroundColor);
         
         // draw the world
         world.draw(window);
+
+        // draw the rays
+        drawRays(window, rays, player.x, player.y);
 
         // draw the player
         player.draw(window);

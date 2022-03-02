@@ -18,12 +18,14 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(HEADERS
     include/player.hpp
     include/world.hpp
+    include/ray_caster.hpp
 )
 
 set(SOURCES
     src/main.cpp
     src/player.cpp
     src/world.cpp
+    src/ray_caster.cpp
 )
 
 add_executable(game 
