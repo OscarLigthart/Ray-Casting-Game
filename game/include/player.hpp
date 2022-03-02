@@ -12,13 +12,22 @@ class Player
 {
     public:
 
-    int x;
-    int y;
+    float x;
+    float y;
+    float dx;
+    float dy;
+    float angle = 0.0;
 
     /**
      *  Constructor
      */
-    Player(int x, int y);
+    Player(float x, float y);
+
+    // methods for movement
+    void left();
+    void right();
+    void forward();
+    void backward();
 
 
     /**

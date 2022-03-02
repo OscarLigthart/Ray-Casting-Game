@@ -7,7 +7,7 @@
 #include <thread>
 
 #include <player.hpp>
-
+#include <world.hpp>
 
 /**
  *  Main function
@@ -21,6 +21,8 @@ int main() {
     // initialize player (at location 300,300)
     Player player(300, 300);
 
+    // initialize world
+    World world;
 
     // parameters
     sf::Color backgroundColor(77, 77, 77, 255);
@@ -41,29 +43,17 @@ int main() {
                 window.close();
 
             if (event.type == sf::Event::KeyPressed){
-                
-                // move left
-                switch (event.key.code){
-                    case sf::Keyboard::W : // move up
-                        player.y -= 5;
-                        break;
-                    case sf::Keyboard::A : // move left
-                        player.x -= 5;
-                        break;
-                    case sf::Keyboard::S : // move down
-                        player.y += 5;
-                        break;
-                    case sf::Keyboard::D : // move right
-                        player.x += 5;
-                        break;
 
-                    // stop if escape is clicked
-                    case sf::Keyboard::Escape :
-                        window.close();
-                        break;
-                }
+                // close window
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) window.close();
             }
         }
+
+        // movement
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) player.forward();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) player.left();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) player.backward();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) player.right();
 
         /**
          *  Draw the board after running all processes
@@ -71,6 +61,9 @@ int main() {
         // Clear the whole window before rendering a new frame
         window.clear(backgroundColor);
         
+        // draw the world
+        world.draw(window);
+
         // draw the player
         player.draw(window);
 
@@ -78,6 +71,6 @@ int main() {
         window.display();
 
         // now sleep for a bit to get a specific framerate (around 60fps)
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(25));
     }
 }

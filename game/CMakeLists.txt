@@ -17,11 +17,13 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 set(HEADERS
     include/player.hpp
+    include/world.hpp
 )
 
 set(SOURCES
     src/main.cpp
     src/player.cpp
+    src/world.cpp
 )
 
 add_executable(game 
