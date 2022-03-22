@@ -11,6 +11,9 @@
 #define P3 3*PI/2
 #define DR 0.0174533
 
+/**
+ *  Method to cast a set of rays from the player's FOV
+ */
 std::vector<Ray> castRays(Player player, World world) {
 
     // initialize variables
